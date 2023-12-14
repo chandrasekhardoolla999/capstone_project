@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'accounts',
     'knox',
-    'home'
+
 ]
 
 MIDDLEWARE = [
@@ -80,29 +80,29 @@ WSGI_APPLICATION = 'TIH.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
-"default": {
-    "ENGINE": "djongo",
-    'ENFORCE_SCHEMA': False,
-    "NAME": "Blog",  # name of your DB which you want to access
-    "CLIENT": {
-        # 'host': 'mongodb+srv://charan:charan19@cluster0.haku4rf.mongodb.net/?retryWrites=true&w=majority',
-        'host': 'mongodb+srv://chandra:chandra123@cluster0.c9dey40.mongodb.net/?retryWrites=true&w=majority',##your db_url if not hosted then localhost
-        'port': 27017,  # port e.g. 27017
-        'username': 'chandra',
-        'password': 'chandra123',
-        'authSource': 'admin',  # set your db auth_source if you know
-        'authMechanism': 'SCRAM-SHA-1'  # set your auth_mechanism if you know
-# add other settings as per your requirements
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-}
+# DATABASES = {
+# "default": {
+#     "ENGINE": "djongo",
+#     'ENFORCE_SCHEMA': False,
+#     "NAME": "Blog",  # name of your DB which you want to access
+#     "CLIENT": {
+#         # 'host': 'mongodb+srv://charan:charan19@cluster0.haku4rf.mongodb.net/?retryWrites=true&w=majority',
+#         'host': 'mongodb+srv://chandra:chandra123@cluster0.c9dey40.mongodb.net/?retryWrites=true&w=majority',##your db_url if not hosted then localhost
+#         'port': 27017,  # port e.g. 27017
+#         'username': 'chandra',
+#         'password': 'chandra123',
+#         'authSource': 'admin',  # set your db auth_source if you know
+#         'authMechanism': 'SCRAM-SHA-1'  # set your auth_mechanism if you know
+# # add other settings as per your requirements
+#     }
+# }
+# }
 
 
 # Password validation

@@ -64,8 +64,15 @@ class TagSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BlogSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True)
+    tags = TagSerializer(many=True, read_only= True)
 
     class Meta:
         model = Blog
+        fields = '__all__'
+
+from .models import BlogPost
+
+class BlogPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogPost
         fields = '__all__'

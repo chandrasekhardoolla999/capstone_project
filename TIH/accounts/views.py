@@ -22,6 +22,16 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import BlogSerializer
+from .models import BlogPost
+from .serializers import BlogPostSerializer
+from rest_framework.response import Response
+from rest_framework import permissions, status
+from rest_framework import generics
+from .models import Post, Comment
+from .serializers import PostSerializer, CommentSerializer
+from .serializers import LikeSerializer
+from .serializers import LoginSerializer
+
 
 class RegisterView(APIView):
     def post(self, request):
@@ -48,8 +58,6 @@ class RegisterView(APIView):
             },status=status.HTTP_400_BAD_REQUEST)
 
 
-from rest_framework.response import Response
-from rest_framework import permissions, status
 
 
 class LogoutView(APIView):
@@ -67,9 +75,7 @@ class LogoutView(APIView):
 
 
 # views.py
-from rest_framework import generics
-from .models import Post, Comment
-from .serializers import PostSerializer, CommentSerializer
+
 
 
 class PostListCreate(generics.ListCreateAPIView):
@@ -91,10 +97,10 @@ class CommentRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 # views.py
-from .serializers import LikeSerializer
+
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def like_view(request):
     user = request.user
     content_type = request.data.get('content_type')
@@ -111,7 +117,6 @@ def like_view(request):
     return Response({'message': message}, status=status.HTTP_200_OK)
 # views.py
 
-from .serializers import LoginSerializer
 
 class LoginView(APIView):
     def post(self, request):
@@ -154,6 +159,17 @@ class LoginView(APIView):
 class BlogCreateView(APIView):
     def post(self, request):
         serializer = BlogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# insight_hub/views.py
+
+
+@api_view(['POST'])
+def save_blog_post(request):
+    if request.method == 'POST':
+        serializer = BlogPostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
